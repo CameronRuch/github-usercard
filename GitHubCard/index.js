@@ -4,11 +4,18 @@
     https://api.github.com/users/<your name>
 */
 import axios from 'axios';
-axios.get('https://api.github.com/users/CameronRuch')
+
+const followersArray = ['tetondan', 'dustinmyers', 'justsml' ,'luishrd', 'bigknell'];
+followersArray.forEach (username => {
+  getGitCard(username);
+})
+function getGitCard (username) {
+axios.get(`https://api.github.com/users/${username}`)
   .then(response => {
     document.querySelector('.cards').appendChild(gitHubCard(response.data));
   })
   .catch(reject => console.log(reject))
+}
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
     github info! You will need to understand the structure of this
@@ -33,7 +40,7 @@ axios.get('https://api.github.com/users/CameronRuch')
     user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+
 function gitHubCard(gitInfo) {
   const card = document.createElement('div');
   const img = document.createElement('img');
@@ -46,6 +53,11 @@ function gitHubCard(gitInfo) {
   const followers = document.createElement('p');
   const following = document.createElement('p');
   const bio = document.createElement('p');
+
+  card.classList.add('card');
+  cardInfo.classList.add('card-info');
+  name.classList.add('name');
+  username.classList.add('username');
 
   img.src = gitInfo.avatar_url;
   name.textContent = gitInfo.name;
@@ -92,11 +104,5 @@ return card;
     </div>
 */
 
-/*
-  List of LS Instructors Github username's:
-    tetondan
-    dustinmyers
-    justsml
-    luishrd
-    bigknell
-*/
+
+
